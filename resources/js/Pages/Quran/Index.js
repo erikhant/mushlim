@@ -9,7 +9,7 @@ import { chaptersWithReader } from '@/helpers/quran/chapters';
 
 
 export default function Index() {
-  const { data, error, loading, searchSurah } = useQuran();
+  const { data, error, loading, searchSurah } = useQuran({list: 'chapter'});
 
   const [search, setSearch] = useState('');
   const [surahs, setSurah] = useState([]);
@@ -58,7 +58,7 @@ export default function Index() {
                   <div className="h-16 w-full flex justify-center items-center"><p className="text-secondary-dark">Tidak ditemukan</p></div>    
               }
               { error && 
-                  <div className="h-16 w-full flex justify-center items-center"><p className="text-secondary-dark">Oops! Sepertinya terjadi kesalahan sistem.</p></div> 
+                  <div className="h-16 w-full flex justify-center items-center"><p className="text-secondary-dark">Oops! Sepertinya terjadi kesalahan.</p></div> 
               }
         </div>
       </AppLayout>

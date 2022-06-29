@@ -4,7 +4,7 @@ import { usePage } from '@inertiajs/inertia-react';
 import { Tab } from '@headlessui/react';
 import { quranStore } from '@/helpers/quran/global';
 import { useQuran } from '@/hooks/quran';
-import { ChevronUpIcon, ChevronDoubleRightIcon, ChevronDoubleLeftIcon, BookmarkIcon } from '@heroicons/react/solid';
+import { ChevronUpIcon, ChevronDoubleRightIcon, ChevronDoubleLeftIcon } from '@heroicons/react/solid';
 import Input from '@/Components/Input';
 import Button from '@/Components/Button';
 

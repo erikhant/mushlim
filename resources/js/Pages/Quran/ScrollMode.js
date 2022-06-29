@@ -29,7 +29,7 @@ export default function ScrollMode({ bismillah, startPage, startVerse }){
         if (loading) return;
         if (!observe.current) {
             observe.current = new IntersectionObserver(entries => {
-                console.log(entries);
+                // console.log(entries);
                 entries.forEach(entry => {
                     // cek apakah terlihat di viewport
                     // dan cek apa typenya
@@ -58,7 +58,6 @@ export default function ScrollMode({ bismillah, startPage, startVerse }){
 
     const handleFootnote = (data, self) => {
         const footnotes = data.map(note => <Footnote text={note.text} key={note.id} />);
-        // ReactDOM.render(<Loading />, target.current.parentElement.getElementsByClassName('foot-note')[0]);
         ReactDOM.render(footnotes, self.current.nextElementSibling);
     }
 
