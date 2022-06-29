@@ -1,3 +1,4 @@
+import { quranStore } from '@/helpers/quran/global';
 import React from 'react';
 import Bross from './Bross';
 import Button from './Button';
@@ -38,16 +39,16 @@ export default function Chapter({
                     <div className="hidden sm:inline-block mb-1.5">
                         <>
                         {
-                            hasProgress == 100 && <span className="text-teal-600 font-semibold mx-3">Selesai</span>
+                            hasProgress === 100 && <span className="text-teal-600 font-semibold mx-3">Selesai</span>
                         }
                         {
-                            hasProgress ?
-                            <Button type="a" to={route('quran.chapter', {chapter: id})} variant="outline">
-                                {  hasProgress < 100 ? 'Lanjutkan membaca' : 'Baca lagi' }
+                            hasProgress && hasProgress < 100 ?
+                            <Button type="a" to={route('quran.chapter', {chapter: id})} onClick={() => quranStore.set('reqVerse', latesReadAyat)} variant="outline">
+                                Lanjutkan membaca
                             </Button>
                             :
                             <Button type="a" to={route('quran.chapter', {chapter: id})} variant="outline">
-                                Mulai Baca
+                                {  hasProgress === 100 ? 'Baca lagi' : 'Mulai Baca'}
                             </Button>
                         }
                         </>
@@ -75,9 +76,9 @@ export default function Chapter({
                             {
                                 hasProgress == 100 && <span className="text-teal-600 font-semibold mr-3 mb-1.5">Selesai</span>
                             }
-                            <Button type="a" to={route('quran.chapter', {chapter: id})} variant="outline">
+                            <Button type="a" to={route('quran.chapter', {chapter: id})} onClick={() => quranStore.set('reqVerse', latesReadAyat)} variant="outline">
                                 {/* Mobile Screen (if has read) */}
-                                { hasProgress < 100 ? 'Lanjutkan' : 'Baca lagi'}
+                                Lanjutkan
                             </Button>
                         </div>
                         <div className="hidden sm:inline-block">
@@ -88,7 +89,7 @@ export default function Chapter({
                     <div className="sm:hidden py-3"> 
                         <Button type="a" to={route('quran.chapter', {chapter: id})} variant="outline">
                             {/* Mobile Screen (if not read)*/}
-                            Mulai Baca
+                            { hasProgress === 100 ? 'Baca lagi' : 'Mulai Baca'}
                         </Button>
                     </div>
                 }

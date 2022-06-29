@@ -2308,11 +2308,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Chapter)
 /* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _Bross__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Bross */ "./resources/js/Components/Bross.js");
-/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Button */ "./resources/js/Components/Button.js");
-/* harmony import */ var _ProgressBar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ProgressBar */ "./resources/js/Components/ProgressBar.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _helpers_quran_global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/helpers/quran/global */ "./resources/js/helpers/quran/global.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _Bross__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Bross */ "./resources/js/Components/Bross.js");
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Button */ "./resources/js/Components/Button.js");
+/* harmony import */ var _ProgressBar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ProgressBar */ "./resources/js/Components/ProgressBar.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
@@ -2335,12 +2337,12 @@ function Chapter(_ref) {
   };
 
   var hasProgress = calcProgress();
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
     className: "w-full max-w-3xl flex text-xs sm:text-sm md:text-base mx-auto md:mx-0 p-3",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "inline-block",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Bross__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Bross__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
           className: "ar-1 text-3xl md:text-4xl text-primary-dark",
           style: {
             lineHeight: 'initial'
@@ -2348,91 +2350,97 @@ function Chapter(_ref) {
           children: arabic
         })
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
       className: "w-full pl-5 pr-0 sm:px-5 py-1 md:flex md:flex-col justify-center",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h2", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("h2", {
         className: "text-sm sm:text-base font-semibold text-secondary-dark",
         children: ["Surah ", transliteration]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "flex w-full justify-between items-center",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
           className: "text-secondary-normal capitalize",
           children: revelation
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
           className: "hidden sm:inline-block mb-1.5",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-            children: [hasProgress == 100 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+            children: [hasProgress === 100 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
               className: "text-teal-600 font-semibold mx-3",
               children: "Selesai"
-            }), hasProgress ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            }), hasProgress && hasProgress < 100 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
+              type: "a",
+              to: route('quran.chapter', {
+                chapter: id
+              }),
+              onClick: function onClick() {
+                return _helpers_quran_global__WEBPACK_IMPORTED_MODULE_0__.quranStore.set('reqVerse', latesReadAyat);
+              },
+              variant: "outline",
+              children: "Lanjutkan membaca"
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
               type: "a",
               to: route('quran.chapter', {
                 chapter: id
               }),
               variant: "outline",
-              children: hasProgress < 100 ? 'Lanjutkan membaca' : 'Baca lagi'
-            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
-              type: "a",
-              to: route('quran.chapter', {
-                chapter: id
-              }),
-              variant: "outline",
-              children: "Mulai Baca"
+              children: hasProgress === 100 ? 'Baca lagi' : 'Mulai Baca'
             })]
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "flex w-full justify-between items-end",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
           className: "text-secondary-normal",
           children: [numVerses, " ayat"]
-        }), hasProgress && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
+        }), hasProgress && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
           className: "text-primary-dark",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
             className: "",
             children: [latesReadAyat, " / "]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
             className: "font-semibold",
             children: numVerses
           })]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         className: "w-auto",
-        children: hasProgress ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        children: hasProgress ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
             className: "my-3",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProgressBar__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ProgressBar__WEBPACK_IMPORTED_MODULE_4__["default"], {
               percentage: hasProgress
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
             className: "sm:hidden flex flex-wrap items-center",
-            children: [hasProgress == 100 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+            children: [hasProgress == 100 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
               className: "text-teal-600 font-semibold mr-3 mb-1.5",
               children: "Selesai"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
               type: "a",
               to: route('quran.chapter', {
                 chapter: id
               }),
+              onClick: function onClick() {
+                return _helpers_quran_global__WEBPACK_IMPORTED_MODULE_0__.quranStore.set('reqVerse', latesReadAyat);
+              },
               variant: "outline",
-              children: hasProgress < 100 ? 'Lanjutkan' : 'Baca lagi'
+              children: "Lanjutkan"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
             className: "hidden sm:inline-block",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
               className: "text-secondary-normal",
               children: latestReadTime
             })
           })]
-        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
           className: "sm:hidden py-3",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
             type: "a",
             to: route('quran.chapter', {
               chapter: id
             }),
             variant: "outline",
-            children: "Mulai Baca"
+            children: hasProgress === 100 ? 'Baca lagi' : 'Mulai Baca'
           })
         })
       })]
@@ -2989,7 +2997,7 @@ function Navbar() {
                 className: "flex flex-col w-full",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_5__["default"], {
                   type: "a",
-                  to: "#",
+                  to: route('quran.index'),
                   className: "px-4 py-1.5",
                   children: "Al-Quran"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Button__WEBPACK_IMPORTED_MODULE_5__["default"], {
@@ -4375,9 +4383,26 @@ function Home() {
       article = _useState2[0],
       setArticle = _useState2[1];
 
+  var navSection = [{
+    text: 'Al-Quran',
+    route: route('quran.index'),
+    img: '/img/quran-2-i.svg'
+  }, {
+    text: 'Tafsir Al-Quran',
+    route: '#',
+    img: '/img/tafsir-2-i.svg'
+  }, {
+    text: 'Dzikir & Doa',
+    route: '#',
+    img: '/img/dzikir-i.svg'
+  }, {
+    text: 'Kisah Nabi \n & Sahabat',
+    route: '#',
+    img: '/img/nabi-saw-i.svg'
+  }];
   var navAppFooter = [{
     text: 'Baca Quran',
-    route: '#'
+    route: route('quran.index')
   }, {
     text: 'Baca Tafsir',
     route: '#'
@@ -4408,82 +4433,30 @@ function Home() {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h2", {
         className: "text-base sm:text-lg md:text-xl text-primary-dark font-bold tracking-wide",
         children: "Sumber bacaan"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "grid grid-cols-2 sm:grid-cols-4 gap-4 my-8",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-          className: "col-span-1 flex flex-col justify-center items-center",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Components_Bross__WEBPACK_IMPORTED_MODULE_3__["default"], {
-            withAnimation: screen.availWidth >= 768,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_6__.Link, {
-              href: route('quran.index'),
-              className: "p-6 md:p-0 rounded-full",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
-                src: "/img/quran-2-i.svg",
-                className: "w-14 h-14 mx-auto"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
-                className: "hidden lg:inline-block mt-3 text-primary-dark font-semibold",
-                children: "Al-Quran"
-              })]
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-            className: "text-sm sm:text-base lg:hidden mt-5",
-            children: "Al-Quran"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-          className: "col-span-1 flex flex-col justify-center items-center",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Components_Bross__WEBPACK_IMPORTED_MODULE_3__["default"], {
-            withAnimation: screen.availWidth >= 768,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_6__.Link, {
-              className: "p-6 md:p-0 rounded-full",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
-                src: "/img/tafsir-2-i.svg",
-                className: "w-14 h-14 mx-auto"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
-                className: "hidden lg:inline-block mt-3 text-primary-dark font-semibold",
-                children: "Tafsir Al-Quran"
-              })]
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-            className: "text-sm sm:text-base lg:hidden mt-5",
-            children: "Tafsir Al-Quran"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-          className: "col-span-1 flex flex-col justify-center items-center",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Components_Bross__WEBPACK_IMPORTED_MODULE_3__["default"], {
-            withAnimation: screen.availWidth >= 768,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_6__.Link, {
-              className: "p-6 md:p-0 rounded-full",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
-                src: "/img/dzikir-i.svg",
-                className: "w-14 h-14 mx-auto"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
-                className: "hidden lg:inline-block mt-3 text-primary-dark font-semibold",
-                children: "Dzikir & Doa"
-              })]
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-            className: "text-sm sm:text-base lg:hidden mt-5",
-            children: "Dzikir & Doa"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-          className: "col-span-1 flex flex-col justify-center items-center",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Components_Bross__WEBPACK_IMPORTED_MODULE_3__["default"], {
-            withAnimation: screen.availWidth >= 768,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_6__.Link, {
-              className: "p-6 md:p-0 rounded-full",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
-                src: "/img/nabi-saw-i.svg",
-                className: "w-14 h-14 mx-auto"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("p", {
-                className: "hidden lg:inline-block mt-2 text-primary-dark font-semibold",
-                children: ["Kisah Nabi ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("br", {}), " & Sahabat"]
-              })]
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-            className: "text-sm sm:text-base lg:hidden mt-5",
-            children: "Kisah Nabi & Sahabat"
-          })]
-        })]
+        children: navSection.map(function (nav) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+            className: "col-span-1 flex flex-col justify-center items-center",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Components_Bross__WEBPACK_IMPORTED_MODULE_3__["default"], {
+              withAnimation: screen.availWidth >= 768,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_6__.Link, {
+                href: nav.route,
+                className: "p-6 md:p-0 rounded-full",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
+                  src: nav.img,
+                  className: "w-14 h-14 mx-auto"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
+                  className: "hidden lg:inline-block mt-3 text-primary-dark font-semibold",
+                  children: nav.text
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+              className: "text-sm sm:text-base lg:hidden mt-5",
+              children: nav.text
+            })]
+          }, nav.text);
+        })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("section", {
       className: "my-12 md:mb-20",
@@ -4888,7 +4861,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function Index() {
-  var _useQuran = (0,_hooks_quran__WEBPACK_IMPORTED_MODULE_2__.useQuran)(),
+  var _useQuran = (0,_hooks_quran__WEBPACK_IMPORTED_MODULE_2__.useQuran)({
+    list: 'chapter'
+  }),
       data = _useQuran.data,
       error = _useQuran.error,
       loading = _useQuran.loading,
@@ -4954,7 +4929,7 @@ function Index() {
         className: "h-16 w-full flex justify-center items-center",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
           className: "text-secondary-dark",
-          children: "Oops! Sepertinya terjadi kesalahan sistem."
+          children: "Oops! Sepertinya terjadi kesalahan."
         })
       })]
     })]
@@ -5494,7 +5469,6 @@ function JuzInfo(_ref4) {
 
 function ChapterInfo(_ref5) {
   var data = _ref5.data;
-  // const escapeTags = (text) => text.match(/(?<=<\w*>)(.*?)(?=<\/\w*>)/gi);
   var text = (0,node_html_parser__WEBPACK_IMPORTED_MODULE_1__.parse)(data.text);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
     className: "relative max-h-[50vh] sm:max-h-[75vh] overflow-y-auto px-3 sm:px-6 md:px-14 py-3 md:py-4 text-xs sm:text-sm md:text-base leading-relaxed",
@@ -6383,7 +6357,7 @@ function ScrollMode(_ref) {
 
     if (!observe.current) {
       observe.current = new IntersectionObserver(function (entries) {
-        console.log(entries);
+        // console.log(entries);
         entries.forEach(function (entry) {
           // cek apakah terlihat di viewport
           // dan cek apa typenya
@@ -6415,8 +6389,7 @@ function ScrollMode(_ref) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(Footnote, {
         text: note.text
       }, note.id);
-    }); // ReactDOM.render(<Loading />, target.current.parentElement.getElementsByClassName('foot-note')[0]);
-
+    });
     react_dom__WEBPACK_IMPORTED_MODULE_1__.render(footnotes, self.current.nextElementSibling);
   };
 
@@ -7352,8 +7325,9 @@ var MODE = {
   MUSHAF: 'mushaf',
   SCROLL: 'scroll'
 };
-var useQuran = function useQuran(_ref) {
-  var page = _ref.page,
+var useQuran = function useQuran() {
+  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      page = _ref.page,
       chapter = _ref.chapter,
       chapterInfo = _ref.chapterInfo,
       chapterDetail = _ref.chapterDetail,
@@ -7361,6 +7335,7 @@ var useQuran = function useQuran(_ref) {
       _ref$mushafMode = _ref.mushafMode,
       mushafMode = _ref$mushafMode === void 0 ? false : _ref$mushafMode,
       list = _ref.list;
+
   var options = {
     revalidateOnFocus: false
   };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import AppLayout from '@/Layouts/AppLayout';
 import ProgressBar from '@/Components/ProgressBar';
 import Bross from '@/Components/Bross';
@@ -11,10 +11,33 @@ export default function Home() {
 
   const [article, setArticle] = useState(['Lorem ipsum dolor sit atmet 1', 'Lorem ipsum dolor sit atmet 2']);
 
+  const navSection = [
+    {
+      text: 'Al-Quran',
+      route: route('quran.index'),
+      img: '/img/quran-2-i.svg'
+    },
+    {
+      text: 'Tafsir Al-Quran',
+      route: '#',
+      img: '/img/tafsir-2-i.svg'
+    },
+    {
+      text: 'Dzikir & Doa',
+      route: '#',
+      img: '/img/dzikir-i.svg'
+    },
+    {
+      text: 'Kisah Nabi \n & Sahabat',
+      route: '#',
+      img: '/img/nabi-saw-i.svg'
+    },
+  ];
+
   const navAppFooter = [
     {
       text: 'Baca Quran',
-      route: '#'
+      route: route('quran.index')
     },
     {
       text: 'Baca Tafsir',
@@ -53,42 +76,19 @@ export default function Home() {
       <section id="reading-list" className="my-10 md:mb-24">
         <h2 className="text-base sm:text-lg md:text-xl text-primary-dark font-bold tracking-wide">Sumber bacaan</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 my-8">
-          <div className="col-span-1 flex flex-col justify-center items-center">
-            <Bross withAnimation={screen.availWidth >= 768}>
-              <Link href={route('quran.index')} className="p-6 md:p-0 rounded-full">
-                <img src="/img/quran-2-i.svg" className="w-14 h-14 mx-auto" />
-                <p className="hidden lg:inline-block mt-3 text-primary-dark font-semibold">Al-Quran</p>
-              </Link>
-            </Bross>
-            <span className="text-sm sm:text-base lg:hidden mt-5">Al-Quran</span>
-          </div>
-          <div className="col-span-1 flex flex-col justify-center items-center">
-            <Bross withAnimation={screen.availWidth >= 768}>
-              <Link className="p-6 md:p-0 rounded-full">
-                <img src="/img/tafsir-2-i.svg" className="w-14 h-14 mx-auto" />
-                <p className="hidden lg:inline-block mt-3 text-primary-dark font-semibold">Tafsir Al-Quran</p>
-              </Link>
-            </Bross>
-            <span className="text-sm sm:text-base lg:hidden mt-5">Tafsir Al-Quran</span>
-          </div>
-          <div className="col-span-1 flex flex-col justify-center items-center">
-            <Bross withAnimation={screen.availWidth >= 768}>
-              <Link className="p-6 md:p-0 rounded-full">
-                <img src="/img/dzikir-i.svg" className="w-14 h-14 mx-auto" />
-                <p className="hidden lg:inline-block mt-3 text-primary-dark font-semibold">Dzikir & Doa</p>
-              </Link>
-            </Bross>
-            <span className="text-sm sm:text-base lg:hidden mt-5">Dzikir & Doa</span>
-          </div>
-          <div className="col-span-1 flex flex-col justify-center items-center">
-            <Bross withAnimation={screen.availWidth >= 768}>
-              <Link className="p-6 md:p-0 rounded-full">
-                <img src="/img/nabi-saw-i.svg" className="w-14 h-14 mx-auto" />
-                <p className="hidden lg:inline-block mt-2 text-primary-dark font-semibold">Kisah Nabi <br/> & Sahabat</p>
-              </Link>
-            </Bross>
-            <span className="text-sm sm:text-base lg:hidden mt-5">Kisah Nabi & Sahabat</span>
-          </div>
+            {
+              navSection.map(nav => (
+                <div key={nav.text} className="col-span-1 flex flex-col justify-center items-center">
+                  <Bross withAnimation={screen.availWidth >= 768}>
+                    <Link href={nav.route} className="p-6 md:p-0 rounded-full">
+                      <img src={nav.img} className="w-14 h-14 mx-auto" />
+                      <p className="hidden lg:inline-block mt-3 text-primary-dark font-semibold">{nav.text}</p>
+                    </Link>
+                  </Bross>
+                  <span className="text-sm sm:text-base lg:hidden mt-5">{nav.text}</span>
+                </div>
+              ))
+            }
         </div>
       </section>
 

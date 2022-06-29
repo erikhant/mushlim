@@ -7,7 +7,7 @@ const MODE = {
     SCROLL: 'scroll'
 }
 
-export const useQuran = ({ page, chapter, chapterInfo, chapterDetail, juz, mushafMode = false, list }) => {
+export const useQuran = ({ page, chapter, chapterInfo, chapterDetail, juz, mushafMode = false, list } = {}) => {
 
     const options = {
         revalidateOnFocus : false

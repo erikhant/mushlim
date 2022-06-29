@@ -38,16 +38,10 @@ export default function Navbar() {
                                                     <ChevronDownIcon className="h-4 w-4" />
                                                 </span>
                                             </Button>
-                                            {/* <button type="button" className="p-1 tracking-wide font-normal text-secondary-dark border-b-2 border-transparent focus:outline-none focus-visible:border-primary-normal hover:text-secondary-normal transition duration-150 ease-in-out">
-                                                <span className="inline-flex items-center ">
-                                                    Sumber Bacaan &nbsp;
-                                                    <ChevronDownIcon className="h-4 w-4" />
-                                                </span>
-                                            </button> */}
                                         </Dropdown.Trigger>
 
                                         <Dropdown.Content className="flex flex-col w-full">
-                                            <Button type="a" to="#" className="px-4 py-1.5">
+                                            <Button type="a" to={route('quran.index')} className="px-4 py-1.5">
                                                 Al-Quran
                                             </Button>
                                             <Button type="a" to="#" className="px-4 py-1.5">
@@ -77,12 +71,6 @@ export default function Navbar() {
                                                     &nbsp;
                                                     <ChevronDownIcon className="h-4 w-4" />
                                                 </Button>
-                                                {/* <button type="button" className="inline-flex items-center p-1 font-normal leading-[50px] text-secondary-dark border-b-2 border-transparent focus:outline-none focus-visible:border-primary-dark hover:text-secondary-normal transition duration-150 ease-in-out">
-                                                    <span className="h-8 w-8 rounded-full bg-secondary-normal">
-                                                    </span>
-                                                    &nbsp;
-                                                    <ChevronDownIcon className="h-4 w-4" />
-                                                </button> */}
                                             </Dropdown.Trigger>
 
                                             <Dropdown.Content className="flex flex-col w-full ">
@@ -145,11 +133,6 @@ export default function Navbar() {
                                                     <ChevronDownIcon className="h-4 w-4" />
                                                 </span>
                                             </Button>
-                                        {/* <button type="button" className="inline-flex items-center font-normal text-base tracking-wide border-none text-secondary-dark focus-visible:bg-neutral-300 transition duration-150 ease-in-out px-3 py-2">
-                                            Sumber Bacaan
-                                            &nbsp;
-                                            <ChevronDownIcon className="h-4 w-4" />
-                                        </button> */}
                                         </Dropdown.Trigger>
                                         <Dropdown.Responsive>
                                             <Button type="a" to={route('quran.index')} className="px-3 py-2 block">Al-Quran</Button>
