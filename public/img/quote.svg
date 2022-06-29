@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="62" height="144" viewBox="0 0 62 144">
+  <defs>
+    <filter id="_" x="0" y="0" width="62" height="144" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="1" result="blur"/>
+      <feFlood flood-opacity="0.102"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#_)">
+    <text id="_2" data-name="&quot;" transform="matrix(-1, 0, 0, 1, 31, 113)" fill="#fefefe" font-size="134" font-family="EarthOrbiter3D, 'Earth Orbiter 3D'" letter-spacing="0.005em"><tspan x="-27.805" y="0">&quot;</tspan></text>
+  </g>
+</svg>

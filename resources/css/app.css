@@ -1,0 +1,204 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+html {
+    scroll-behavior: smooth;
+}
+
+@font-face {
+    font-family: "LPMQ";
+    src: url("/font/LPMQIsepMisbah.ttf") format("truetype"),
+        url("/font/LPMQIsepMisbah.eot") format("embedded-opentype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Uthmanic Hafs";
+    src: url("/font/UthmanicHafs1-Ver17.woff2") format("woff2"),
+        url("/font/UthmanicHafs1-Ver17.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@layer components {
+    .tooltip {
+        @apply absolute -translate-x-full min-w-max h-auto p-2 rounded border border-secondary-light bg-ui text-xs sm:text-sm leading-tight text-secondary-dark font-sans;
+    }
+}
+
+@layer utilities {
+    .mushaf-view.fluid-text {
+        font-size: calc(1.43em + (8 - 1.43) * ((100vw - 400px) / (1400 - 300)));
+    }
+
+    .quran-2.mushaf-view.fluid-text {
+        font-size: calc(2em + (8 - 2) * ((100vw - 400px) / (1400 - 300)));
+    }
+
+    .quran-6.mushaf-view.fluid-text {
+        font-size: calc(1.4em + (8 - 1.4) * ((100vw - 400px) / (1400 - 300)));
+    }
+
+    .scroll-view.fluid-text {
+        font-size: calc(2.1em + (6 - 2.1) * ((100vw - 400px) / (1400 - 300)));
+    }
+
+    .quran-2.scroll-view.fluid-text {
+        font-size: calc(2.5em + (6 - 2.5) * ((100vw - 400px) / (1400 - 300)));
+    }
+
+    .ar-1 {
+        font-family: "Uthmanic Hafs";
+        direction: rtl;
+        word-spacing: -4.2px;
+    }
+
+    .ar-2 {
+        font-family: "LPMQ";
+        direction: rtl;
+        word-spacing: -4.2px;
+    }
+
+    /* Main Styles App */
+    .pattern {
+        background-image: url("/img/pattern.svg");
+        background-size: 22rem;
+        @apply bg-left-top bg-origin-border bg-repeat;
+    }
+
+    .banner-bg {
+        background-image: url("/img/banner.jpg");
+        background-size: cover;
+        @apply bg-top bg-no-repeat;
+    }
+
+    .banner-pattern {
+        background-image: url("/img/banner-bg.svg");
+        background-size: cover;
+        @apply bg-center bg-no-repeat;
+    }
+
+    .ornamen-ui {
+        background-image: url("/img/ornamen-ui.svg");
+        background-size: 26rem;
+        background-position: bottom calc(100% - 45ch) right calc(100% - 35vw);
+        @apply bg-origin-border bg-no-repeat;
+    }
+
+    .reading-opener {
+        @apply opacity-0 transform -translate-y-8;
+    }
+
+    .reading-item {
+        @apply transform translate-y-0;
+    }
+
+    .reading-item:hover {
+        @apply -translate-y-4;
+    }
+
+    .reading-item:hover .reading-opener {
+        @apply opacity-100 translate-y-0 delay-75;
+    }
+}
+
+#sholat-schedule::before {
+    content: url("/img/ornamen-ui.svg");
+    @apply absolute bottom-6 right-4 transform translate-y-1/2 translate-x-1/2;
+}
+
+#sholat-schedule {
+    background: rgb(181, 207, 182);
+    background: linear-gradient(
+        347deg,
+        rgba(181, 207, 182, 1) 0%,
+        rgba(181, 207, 182, 0.6709642731741573) 40%,
+        rgba(181, 207, 182, 0.5024249473314606) 60%,
+        rgba(181, 207, 182, 0.3507395540730337) 80%,
+        rgba(181, 207, 182, 0) 100%
+    );
+}
+
+/* NProggress */
+#nprogress {
+    pointer-events: none;
+}
+
+#nprogress .bar {
+    background: #749a77;
+
+    position: fixed;
+    z-index: 1031;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 4px;
+}
+
+#nprogress .peg {
+    display: block;
+    position: absolute;
+    right: 0px;
+    width: 100px;
+    height: 100%;
+    box-shadow: 0 0 10px #749a77, 0 0 5px #749a77;
+    opacity: 1;
+
+    -webkit-transform: rotate(3deg) translate(0px, -4px);
+    -ms-transform: rotate(3deg) translate(0px, -4px);
+    transform: rotate(3deg) translate(0px, -4px);
+}
+
+#nprogress .spinner {
+    display: block;
+    position: fixed;
+    z-index: 1031;
+    top: 15px;
+    right: 15px;
+}
+
+#nprogress .spinner-icon {
+    width: 18px;
+    height: 18px;
+    box-sizing: border-box;
+
+    border: solid 2px transparent;
+    border-top-color: #749a77;
+    border-left-color: #749a77;
+    border-radius: 50%;
+
+    -webkit-animation: nprogress-spinner 400ms linear infinite;
+    animation: nprogress-spinner 400ms linear infinite;
+}
+
+.nprogress-custom-parent {
+    overflow: hidden;
+    position: relative;
+}
+
+.nprogress-custom-parent #nprogress .spinner,
+.nprogress-custom-parent #nprogress .bar {
+    position: absolute;
+}
+
+@-webkit-keyframes nprogress-spinner {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@keyframes nprogress-spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
