@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import AppLayout from '@/Layouts/AppLayout';
 import Button from '@/Components/Button';
 import ScrollMode from './ScrollMode';
@@ -6,9 +6,9 @@ import MushafMode from './MushafMode';
 import Navigate from './Navigate';
 import { BookOpenIcon, CollectionIcon } from '@heroicons/react/outline';
 import { usePage, Head } from '@inertiajs/inertia-react';
-import { getChapterInStorage } from '@/helpers/quran/chapters';
+import { getChapterInStorage } from '@/helpers/quran/chapters.helper';
 import { useQuran } from '@/hooks/quran';
-import { quranStore } from '@/helpers/quran/global';
+import { quranStore } from '@/store/quranStore';
 import { pagePositionByVerse } from '@/helpers/quran/pages.helper';
 
 export default function Read() {
@@ -20,10 +20,6 @@ export default function Read() {
   const { inPageScroll, inPageMushaf, lastAyatRead } = getChapterInStorage(quran.chapter);
 
   const startPage = pagePositionByVerse(reqVerse || 1);
-
-  console.log('start page', startPage);
-  console.log('start verse', reqVerse);
-
   const handleRoute = (mode) => {
     if (quran.chapter){
         return route('quran.chapter', { chapter: quran.chapter, mode });

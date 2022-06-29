@@ -1,12 +1,12 @@
-import React, { useEffect, useState, useCallback, useRef, Fragment } from 'react';
+import React, { useEffect, useState, useCallback, Fragment } from 'react';
 import Loading from '@/Components/Loading';
 import Verse from '@/Components/Verse';
 import Button from '@/Components/Button';
 import { Head, usePage } from '@inertiajs/inertia-react';
 import { useQuran } from '@/hooks/quran';
 import { ArrowNarrowLeftIcon, ArrowNarrowRightIcon } from '@heroicons/react/outline';
-import { addFontface, getGlobalFont } from '@/helpers/quran/fontface';
-import { quranStore } from '@/helpers/quran/global';
+import { addFontface, getGlobalFont } from '@/helpers/quran/fontface.helper';
+import { quranStore } from '@/store/quranStore';
 
 
 export default function MushafMode({ chapterData, startPage, startVerse }){

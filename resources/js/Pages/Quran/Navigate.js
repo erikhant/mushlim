@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { parse as HTMLParser } from 'node-html-parser';
 import { usePage } from '@inertiajs/inertia-react';
 import { Tab } from '@headlessui/react';
-import { quranStore } from '@/helpers/quran/global';
+import { quranStore } from '@/store/quranStore';
 import { useQuran } from '@/hooks/quran';
 import { ChevronUpIcon, ChevronDoubleRightIcon, ChevronDoubleLeftIcon } from '@heroicons/react/solid';
 import Input from '@/Components/Input';
@@ -76,7 +76,6 @@ function Jumper({ chapters }) {
         if (chapter.current == quran.chapter) {
             setOnSelectVerse(() => {
                 return (value) => {
-                    console.log(value);
                     location.hash = value;
                     setVerse(value);
                 }
@@ -316,7 +315,6 @@ export default function Navigate({ navigate }) {
         }
 
         if (navigate) {
-            console.log('get navigate', navigate);
             setNav(prev => ({
                 ...prev,
                 info: quran.chapter ? <ChapterInfo data={navigate} /> : <JuzInfo data={navigate} />
