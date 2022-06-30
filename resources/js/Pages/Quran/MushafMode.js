@@ -9,7 +9,7 @@ import { addFontface, getGlobalFont } from '@/helpers/quran/fontface.helper';
 import { quranStore } from '@/store/quranStore';
 
 export default function MushafMode({ chapterData, startPage, startVerse }){
-    const { quran } = usePage().props;
+    const { quran, baseURL } = usePage().props;
     const [ pageIndex, setPageIndex ] = useState(startPage);
     const { verses, pagination, error, loading } = useQuran({ page: pageIndex, mushafMode: true });
 
@@ -32,7 +32,10 @@ export default function MushafMode({ chapterData, startPage, startVerse }){
         quran.fonts = addFontface({
             fonts: quran.fonts, 
             family: `quran-${page}`, 
-            pageNumber: page
+            page,
+            options: {
+                baseURL
+            }
         });
     }, []);
 

@@ -24,10 +24,12 @@ class QuranController extends Controller
         $value['quran'] = [
             'chapter' => $request->chapter,
             'juz' => $request->juz,
-            'footnoteCount' => 0,
             'mode' => $this->mode,
-            'fonts' => []
+            'fonts' => [],
+            'footnoteCount' => 0
         ];
+
+        $value['baseURL'] =  env('APP_URL');
 
         return Inertia::render('Quran/Read', $value);
     }
