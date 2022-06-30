@@ -285,7 +285,7 @@ export default function Navigate({ navigate }) {
     const togglePosition = () => {
         setToggle(prev => !prev);
         const offsetHeight = self.current.offsetHeight;
-        const adjuster = screen.availWidth < 768 ? 0.7 : 0.6;
+        const adjuster = screen.availWidth < 768 ? 0.55 : 0.6;
 
         if (toggle) {
             self.current.classList.remove('top-0');
@@ -342,7 +342,7 @@ export default function Navigate({ navigate }) {
     
 
   return (
-    <div ref={self} className="sticky top-0 left-0 right-0 h-auto z-30 mb-6 origin-top text-xs sm:text-sm md:text-base bg-ui border border-secondary-light rounded transition-all duration-200 ease-out">
+    <div ref={self} className="sticky top-10 md:top-0 left-0 right-0 h-auto z-30 mb-6 origin-top text-xs sm:text-sm md:text-base bg-ui border border-secondary-light rounded transition-all duration-200 ease-out">
         <div ref={() => setScrollPaddingTop(self)} className="inline-block overflow-y-auto w-full h-full pb-3 md:pb-1.5">
             <Tab.Group>
                 <Tab.List className="flex p-3 space-x-1 rounded-md">

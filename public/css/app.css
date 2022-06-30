@@ -695,6 +695,15 @@ select {
 .right-5 {
   right: 1.25rem;
 }
+.top-5 {
+  top: 1.25rem;
+}
+.top-16 {
+  top: 4rem;
+}
+.top-10 {
+  top: 2.5rem;
+}
 .z-0 {
   z-index: 0;
 }
@@ -2473,6 +2482,10 @@ html {
 
   .md\:bottom-5 {
     bottom: 1.25rem;
+  }
+
+  .md\:top-0 {
+    top: 0px;
   }
 
   .md\:col-span-2 {
