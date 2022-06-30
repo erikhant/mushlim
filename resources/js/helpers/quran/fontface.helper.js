@@ -10,10 +10,10 @@ export const fontfaceStyle = (fontClassName, page) => (
       direction: rtl;
      }
     `
-  );
+);
   
 export const getQuranFont = (pageNumber) => {
-  return `http://127.0.0.1:8000/font/quran/woff2/p${pageNumber}.woff2`;
+  return `${process.env.MIX_APP_URL}/font/quran/woff2/p${pageNumber}.woff2`;
 }
 
 export const addFontface = ({fonts, family, pageNumber}) => {

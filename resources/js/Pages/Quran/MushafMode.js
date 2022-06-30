@@ -1,33 +1,32 @@
-import React, { useEffect, useState, useCallback, useRef, Fragment } from 'react';
+import React, { useEffect, useState, useCallback, Fragment } from 'react';
 import Loading from '@/Components/Loading';
 import Verse from '@/Components/Verse';
 import Button from '@/Components/Button';
-import { Head, usePage } from '@inertiajs/inertia-react';
+import { usePage } from '@inertiajs/inertia-react';
 import { useQuran } from '@/hooks/quran';
 import { ArrowNarrowLeftIcon, ArrowNarrowRightIcon } from '@heroicons/react/outline';
-import { addFontface, getGlobalFont } from '@/helpers/quran/fontface';
-import { quranStore } from '@/helpers/quran/global';
-
+import { addFontface, getGlobalFont } from '@/helpers/quran/fontface.helper';
+import { quranStore } from '@/store/quranStore';
 
 export default function MushafMode({ chapterData, startPage, startVerse }){
-    console.log('inPageMushaf', startPage);
     const { quran } = usePage().props;
     const [ pageIndex, setPageIndex ] = useState(startPage);
     const { verses, pagination, error, loading } = useQuran({ page: pageIndex, mushafMode: true });
 
-    const handleMovePage = (direction) => {
-        if(direction == 'next' ) {
-            quranStore.incPage();
-            setPageIndex(pagination.next_page);
-            handleFontface(pagination.next_page);
+    const handleMovePage = (state) => {
+        const { next_page, previous_page } = pagination;
+        if(state == 'next' ) {
+            quranStore.set('latest page', next_page);
+            setPageIndex(next_page);
+            handleFontface(next_page);
         }
-        if(direction == 'prev') { 
-            quranStore.decPage();
-            setPageIndex(pagination.previous_page);
-            handleFontface(pagination.previous_page);
+        if(state == 'prev') { 
+            quranStore.set('latest page', previous_page);
+            setPageIndex(previous_page);
+            handleFontface(previous_page);
         }
         scrollTo(0, 0);
-    }    
+    }
 
     const handleFontface = useCallback((page) => {
         quran.fonts = addFontface({
@@ -35,7 +34,12 @@ export default function MushafMode({ chapterData, startPage, startVerse }){
             family: `quran-${page}`, 
             pageNumber: page
         });
-    });
+    }, []);
+
+    // useEffect(() => {
+    //   handleFontface(startPage);
+
+    // }, [startPage]);    
 
     const isChapterEnd = () => {
         return pagination.current_page === chapterData?.pages[1];
@@ -45,23 +49,21 @@ export default function MushafMode({ chapterData, startPage, startVerse }){
         return pagination.current_page === chapterData?.pages[0];
     }   
     
-    const placeBismillah = (idInSurah, idInGlobal) => {
-        // jika surat al-fatiha / at-taubah, skip tanpa bismillah (img)
-        if (idInGlobal === 1 || idInGlobal === 1236) return false;
-
-        return idInSurah === 1;
+    const preBismillah = ({ verse_number, words }) => {
+        // jika surat al-fatiha / at-taubah, skip tanpa bismillah
+        if (chapterData.id === 1 || chapterData.id === 9) return false;
+        
+        if (verse_number === 1 && words[0].position === 1) return true;
+        return false;
     }
 
     useEffect(() => {
-        quranStore.setLatestPage(startPage);
-        quranStore.setLatestChapter(chapterData?.id);
+        quranStore.set('latest page', startPage);
+        quranStore.set('latest chapter', chapterData?.id);
         quran.fonts = getGlobalFont();
         handleFontface(startPage);
 
     }, []);
-
-    console.log(verses);
-    
       
     return (
         <>                
@@ -73,10 +75,10 @@ export default function MushafMode({ chapterData, startPage, startVerse }){
                                 Object.keys(verses || {}).map(line => 
                                     <div key={line} data-line={line} className="w-auto text-center mx-auto">
                                     {
-                                        verses[line].map(verse => (
+                                        verses[line].map((verse) => (
                                             <Fragment key={verse.id}>
                                                 {
-                                                    placeBismillah(verse.verse_number, verse.id) ?
+                                                    preBismillah(verse) ?
                                                     <div className="w-full mb-4 sm:mb-6 mt-3 text-secondary-dark text-center">
                                                         <img className="inline-block w-52 md:w-60" src="/font/quran/bismillah.svg" />
                                                     </div>
@@ -109,8 +111,8 @@ export default function MushafMode({ chapterData, startPage, startVerse }){
                                     isChapterEnd() ?
                                     <Button 
                                         type="a"
-                                        to={route('quran.chapter', { chapter: chapterData.id + 1, mode: 'mushaf' })}
-                                        onClick={() => quranStore.incPage()} 
+                                        onClick={() => quranStore.set('latest page', pagination.next_page)} 
+                                        to={route('quran.chapter', { chapter: chapterData.id + 1, mode: quran.mode })}
                                         variant="outline-circle" 
                                         className="md:p-2" 
                                         processing={!pagination.next_page || loading}
@@ -137,8 +139,8 @@ export default function MushafMode({ chapterData, startPage, startVerse }){
                                     isChapterStart() ?
                                     <Button 
                                         type="a"
-                                        to={route('quran.chapter', { chapter: chapterData.id - 1, mode: 'mushaf' })}
-                                        onClick={() => quranStore.decPage()} 
+                                        onClick={() => quranStore.set('latest page', pagination.previous_page)} 
+                                        to={route('quran.chapter', { chapter: chapterData.id - 1, mode: quran.mode })}
                                         variant="outline-circle" 
                                         className="md:p-2" 
                                         processing={!pagination.previous_page || loading}

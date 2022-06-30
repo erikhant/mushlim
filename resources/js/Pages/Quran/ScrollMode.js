@@ -11,10 +11,10 @@ import { usePage } from '@inertiajs/inertia-react';
 import { BookmarkIcon as BookmarkIconSolid } from '@heroicons/react/solid';
 import { BookmarkIcon, PlayIcon, PauseIcon } from '@heroicons/react/outline';
 import QuranContextProvider, { ACTION, QuranContext } from '@/store/QuranContext';
-import { getGlobalFont, addFontface } from '@/helpers/quran/fontface';
+import { getGlobalFont, addFontface } from '@/helpers/quran/fontface.helper';
 import { getYAxisByElement } from '@/helpers/scrollRegion';
 import { pagePositionByVerse } from '@/helpers/quran/pages.helper';
-import { quranStore } from '@/helpers/quran/global';
+import { quranStore } from '@/store/quranStore';
 
 export default function ScrollMode({ bismillah, startPage, startVerse }){
     const { quran } = usePage().props;

@@ -5,7 +5,7 @@ import Input from '@/Components/Input';
 import Chapter from '@/Components/Chapter';
 import Loading from '@/Components/Loading';
 import AppLayout from '@/Layouts/AppLayout';
-import { chaptersWithReader } from '@/helpers/quran/chapters';
+import { chaptersWithReader } from '@/helpers/quran/chapters.helper';
 
 
 export default function Index() {

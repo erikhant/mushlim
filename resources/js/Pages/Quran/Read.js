@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import AppLayout from '@/Layouts/AppLayout';
 import Button from '@/Components/Button';
 import ScrollMode from './ScrollMode';
@@ -6,23 +6,22 @@ import MushafMode from './MushafMode';
 import Navigate from './Navigate';
 import { BookOpenIcon, CollectionIcon } from '@heroicons/react/outline';
 import { usePage, Head } from '@inertiajs/inertia-react';
-import { getChapterInStorage } from '@/helpers/quran/chapters';
+import { getChapterInStorage } from '@/helpers/quran/chapters.helper';
 import { useQuran } from '@/hooks/quran';
-import { quranStore } from '@/helpers/quran/global';
+import { quranStore } from '@/store/quranStore';
 import { pagePositionByVerse } from '@/helpers/quran/pages.helper';
 
 export default function Read() {
   const { quran } = usePage().props;
-  const { latestPage, reqVerse } = quranStore;
   const { data:detail, error:errDetail } = useQuran({ chapterDetail: quran.chapter });
   const { data:info, error:errInfo } = useQuran({ chapterInfo: quran.chapter });
   const { data:juzs, error:errJuzs } = useQuran({ list: 'juz' });
   const { inPageScroll, inPageMushaf, lastAyatRead } = getChapterInStorage(quran.chapter);
 
+  const reqVerse = quranStore.get('reqVerse');
+  const latestPage = quranStore.get('latest page');
+  // Only effect in scroll mode
   const startPage = pagePositionByVerse(reqVerse || 1);
-
-  console.log('start page', startPage);
-  console.log('start verse', reqVerse);
 
   const handleRoute = (mode) => {
     if (quran.chapter){
@@ -37,7 +36,6 @@ export default function Read() {
     }
     return `Quran: juz ${quran.juz}`;
   }
-
 
   return (
     <AppLayout className="bg-body">
@@ -54,6 +52,7 @@ export default function Read() {
                 <Button
                     type="a"
                     to={handleRoute('0')}
+                    onClick={() => quranStore.set('latest page', detail.pages[0])}
                     variant="solid-circle"
                     className="shadow-lg shadow-slate-300"
                 >

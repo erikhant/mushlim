@@ -227,7 +227,7 @@ function GuestBanner() {
         <h1 className="text-lg sm:text-xl md:text-4xl font-bold leading-snug sm:leading-relaxed">Sudahkah Anda membaca Al-Quran hari ini?</h1>
         <p className="tracking-wide text-sm sm:text-base leading-snug sm:leading-relaxed">Kami menyediakan Al-Quran digital dan sumber bacaan ilmu agama untuk kegiatan ibadah Anda yang <span className="hidden md:inline">bisa diakses dimana saja &</span> InsyaAllah bermanfaat. </p>
         <div className="hidden md:block">
-          <Button type="a" to={'#'} variant="outline">
+          <Button type="a" to={route('quran.index')} variant="outline">
             Mulai Sekarang
           </Button>
         </div>

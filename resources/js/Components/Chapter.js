@@ -1,4 +1,4 @@
-import { quranStore } from '@/helpers/quran/global';
+import { quranStore } from '@/store/quranStore';
 import React from 'react';
 import Bross from './Bross';
 import Button from './Button';
