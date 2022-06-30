@@ -13,13 +13,16 @@ import { pagePositionByVerse } from '@/helpers/quran/pages.helper';
 
 export default function Read() {
   const { quran } = usePage().props;
-  const { latestPage, reqVerse } = quranStore;
   const { data:detail, error:errDetail } = useQuran({ chapterDetail: quran.chapter });
   const { data:info, error:errInfo } = useQuran({ chapterInfo: quran.chapter });
   const { data:juzs, error:errJuzs } = useQuran({ list: 'juz' });
   const { inPageScroll, inPageMushaf, lastAyatRead } = getChapterInStorage(quran.chapter);
 
+  const reqVerse = quranStore.get('reqVerse');
+  const latestPage = quranStore.get('latest page');
+  // Only effect in scroll mode
   const startPage = pagePositionByVerse(reqVerse || 1);
+
   const handleRoute = (mode) => {
     if (quran.chapter){
         return route('quran.chapter', { chapter: quran.chapter, mode });
@@ -33,7 +36,6 @@ export default function Read() {
     }
     return `Quran: juz ${quran.juz}`;
   }
-
 
   return (
     <AppLayout className="bg-body">
@@ -50,6 +52,7 @@ export default function Read() {
                 <Button
                     type="a"
                     to={handleRoute('0')}
+                    onClick={() => quranStore.set('latest page', detail.pages[0])}
                     variant="solid-circle"
                     className="shadow-lg shadow-slate-300"
                 >

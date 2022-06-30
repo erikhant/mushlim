@@ -4704,7 +4704,7 @@ function GuestBanner() {
         className: "hidden md:block",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Components_Button__WEBPACK_IMPORTED_MODULE_5__["default"], {
           type: "a",
-          to: '#',
+          to: route('quran.index'),
           variant: "outline",
           children: "Mulai Sekarang"
         })
@@ -4987,7 +4987,6 @@ function MushafMode(_ref) {
   var chapterData = _ref.chapterData,
       startPage = _ref.startPage,
       startVerse = _ref.startVerse;
-  console.log('inPageMushaf', startPage);
   var quran = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_4__.usePage)().props.quran;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(startPage),
@@ -5004,17 +5003,20 @@ function MushafMode(_ref) {
       error = _useQuran.error,
       loading = _useQuran.loading;
 
-  var handleMovePage = function handleMovePage(direction) {
-    if (direction == 'next') {
-      _store_quranStore__WEBPACK_IMPORTED_MODULE_8__.quranStore.incPage();
-      setPageIndex(pagination.next_page);
-      handleFontface(pagination.next_page);
+  var handleMovePage = function handleMovePage(state) {
+    var next_page = pagination.next_page,
+        previous_page = pagination.previous_page;
+
+    if (state == 'next') {
+      _store_quranStore__WEBPACK_IMPORTED_MODULE_8__.quranStore.set('latest page', next_page);
+      setPageIndex(next_page);
+      handleFontface(next_page);
     }
 
-    if (direction == 'prev') {
-      _store_quranStore__WEBPACK_IMPORTED_MODULE_8__.quranStore.decPage();
-      setPageIndex(pagination.previous_page);
-      handleFontface(pagination.previous_page);
+    if (state == 'prev') {
+      _store_quranStore__WEBPACK_IMPORTED_MODULE_8__.quranStore.set('latest page', previous_page);
+      setPageIndex(previous_page);
+      handleFontface(previous_page);
     }
 
     scrollTo(0, 0);
@@ -5026,7 +5028,9 @@ function MushafMode(_ref) {
       family: "quran-".concat(page),
       pageNumber: page
     });
-  });
+  }, []); // useEffect(() => {
+  //   handleFontface(startPage);
+  // }, [startPage]);    
 
   var isChapterEnd = function isChapterEnd() {
     return pagination.current_page === (chapterData === null || chapterData === void 0 ? void 0 : chapterData.pages[1]);
@@ -5036,19 +5040,21 @@ function MushafMode(_ref) {
     return pagination.current_page === (chapterData === null || chapterData === void 0 ? void 0 : chapterData.pages[0]);
   };
 
-  var placeBismillah = function placeBismillah(idInSurah, idInGlobal) {
-    // jika surat al-fatiha / at-taubah, skip tanpa bismillah (img)
-    if (idInGlobal === 1 || idInGlobal === 1236) return false;
-    return idInSurah === 1;
+  var preBismillah = function preBismillah(_ref2) {
+    var verse_number = _ref2.verse_number,
+        words = _ref2.words;
+    // jika surat al-fatiha / at-taubah, skip tanpa bismillah
+    if (chapterData.id === 1 || chapterData.id === 9) return false;
+    if (verse_number === 1 && words[0].position === 1) return true;
+    return false;
   };
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    _store_quranStore__WEBPACK_IMPORTED_MODULE_8__.quranStore.setLatestPage(startPage);
-    _store_quranStore__WEBPACK_IMPORTED_MODULE_8__.quranStore.setLatestChapter(chapterData === null || chapterData === void 0 ? void 0 : chapterData.id);
+    _store_quranStore__WEBPACK_IMPORTED_MODULE_8__.quranStore.set('latest page', startPage);
+    _store_quranStore__WEBPACK_IMPORTED_MODULE_8__.quranStore.set('latest chapter', chapterData === null || chapterData === void 0 ? void 0 : chapterData.id);
     quran.fonts = (0,_helpers_quran_fontface_helper__WEBPACK_IMPORTED_MODULE_7__.getGlobalFont)();
     handleFontface(startPage);
   }, []);
-  console.log(verses);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
       className: "w-full mt-10 md:mt-0 relative",
@@ -5063,7 +5069,7 @@ function MushafMode(_ref) {
               className: "w-auto text-center mx-auto",
               children: verses[line].map(function (verse) {
                 return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-                  children: [placeBismillah(verse.verse_number, verse.id) ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+                  children: [preBismillah(verse) ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
                     className: "w-full mb-4 sm:mb-6 mt-3 text-secondary-dark text-center",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("img", {
                       className: "inline-block w-52 md:w-60",
@@ -5091,13 +5097,13 @@ function MushafMode(_ref) {
         className: "fixed transform md:top-1/2 left-0 -translate-y-full md:-translate-y-1/2 inline-block h-auto w-auto ml-4 md:ml-5",
         children: isChapterEnd() ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Components_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
           type: "a",
+          onClick: function onClick() {
+            return _store_quranStore__WEBPACK_IMPORTED_MODULE_8__.quranStore.set('latest page', pagination.next_page);
+          },
           to: route('quran.chapter', {
             chapter: chapterData.id + 1,
-            mode: 'mushaf'
+            mode: quran.mode
           }),
-          onClick: function onClick() {
-            return _store_quranStore__WEBPACK_IMPORTED_MODULE_8__.quranStore.incPage();
-          },
           variant: "outline-circle",
           className: "md:p-2",
           processing: !pagination.next_page || loading,
@@ -5119,13 +5125,13 @@ function MushafMode(_ref) {
         className: "fixed transform md:top-1/2 right-0 -translate-y-full md:-translate-y-1/2 inline-block w-auto mr-4 md:mr-5",
         children: isChapterStart() ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Components_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
           type: "a",
+          onClick: function onClick() {
+            return _store_quranStore__WEBPACK_IMPORTED_MODULE_8__.quranStore.set('latest page', pagination.previous_page);
+          },
           to: route('quran.chapter', {
             chapter: chapterData.id - 1,
-            mode: 'mushaf'
+            mode: quran.mode
           }),
-          onClick: function onClick() {
-            return _store_quranStore__WEBPACK_IMPORTED_MODULE_8__.quranStore.decPage();
-          },
           variant: "outline-circle",
           className: "md:p-2",
           processing: !pagination.previous_page || loading,
@@ -5237,10 +5243,6 @@ function Jumper(_ref) {
 
   var chapter = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(quran.chapter || 1);
 
-  var requestSelectedVerse = function requestSelectedVerse() {
-    _store_quranStore__WEBPACK_IMPORTED_MODULE_3__.quranStore.set('reqVerse', verse);
-  };
-
   var chapterOptions = function chapterOptions() {
     return chapters.map(function (chapter) {
       return {
@@ -5295,6 +5297,23 @@ function Jumper(_ref) {
     }
 
     return route(nameRoute, _objectSpread({}, options));
+  };
+
+  var onNavigateChanges = function onNavigateChanges(state) {
+    _store_quranStore__WEBPACK_IMPORTED_MODULE_3__.quranStore.set('reqVerse', verse);
+
+    if (quran.mode === '0' && quran.chapter) {
+      var current = chapters.filter(function (chapt) {
+        if (state === 'prev') {
+          return chapt.id === parseInt(quran.chapter) - 1;
+        } else if (state === 'next') {
+          return chapt.id === parseInt(quran.chapter) + 1;
+        } else {
+          return chapt.id == chapter.current;
+        }
+      })[0];
+      _store_quranStore__WEBPACK_IMPORTED_MODULE_3__.quranStore.set('latest page', current.pages[0]);
+    }
   };
 
   var setEventOnSelectedVerse = function setEventOnSelectedVerse() {
@@ -5353,7 +5372,7 @@ function Jumper(_ref) {
             chapter: chapter.current,
             mode: quran.mode
           }),
-          onClick: requestSelectedVerse,
+          onClick: onNavigateChanges,
           children: "Go"
         }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Components_Button__WEBPACK_IMPORTED_MODULE_7__["default"], {
           variant: "solid",
@@ -5392,6 +5411,9 @@ function Jumper(_ref) {
       children: [quran.chapter === '114' || quran.juz === '30' ? '' : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_Components_Button__WEBPACK_IMPORTED_MODULE_7__["default"], {
         type: "a",
         variant: "outline",
+        onClick: function onClick() {
+          return onNavigateChanges('next');
+        },
         to: handlePageRoute('next'),
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
           className: "mr-1.5",
@@ -5402,6 +5424,9 @@ function Jumper(_ref) {
       }), quran.chapter === '1' || quran.juz === '1' ? '' : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_Components_Button__WEBPACK_IMPORTED_MODULE_7__["default"], {
         type: "a",
         variant: "outline",
+        onClick: function onClick() {
+          return onNavigateChanges('prev');
+        },
         to: handlePageRoute('prev'),
         children: [quran.chapter ? 'Prev surah' : 'Prev juz', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
           className: "ml-1.5",
@@ -5709,8 +5734,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function Read() {
   var quran = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_7__.usePage)().props.quran;
-  var latestPage = _store_quranStore__WEBPACK_IMPORTED_MODULE_10__.quranStore.latestPage,
-      reqVerse = _store_quranStore__WEBPACK_IMPORTED_MODULE_10__.quranStore.reqVerse;
 
   var _useQuran = (0,_hooks_quran__WEBPACK_IMPORTED_MODULE_9__.useQuran)({
     chapterDetail: quran.chapter
@@ -5734,6 +5757,9 @@ function Read() {
       inPageScroll = _getChapterInStorage.inPageScroll,
       inPageMushaf = _getChapterInStorage.inPageMushaf,
       lastAyatRead = _getChapterInStorage.lastAyatRead;
+
+  var reqVerse = _store_quranStore__WEBPACK_IMPORTED_MODULE_10__.quranStore.get('reqVerse');
+  var latestPage = _store_quranStore__WEBPACK_IMPORTED_MODULE_10__.quranStore.get('latest page'); // Only effect in scroll mode
 
   var startPage = (0,_helpers_quran_pages_helper__WEBPACK_IMPORTED_MODULE_11__.pagePositionByVerse)(reqVerse || 1);
 
@@ -5777,6 +5803,9 @@ function Read() {
       (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Components_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
         type: "a",
         to: handleRoute('0'),
+        onClick: function onClick() {
+          return _store_quranStore__WEBPACK_IMPORTED_MODULE_10__.quranStore.set('latest page', detail.pages[0]);
+        },
         variant: "solid-circle",
         className: "shadow-lg shadow-slate-300",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_heroicons_react_outline__WEBPACK_IMPORTED_MODULE_6__.BookOpenIcon, {
@@ -6352,7 +6381,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
-var appName = ((_window$document$getE = window.document.getElementsByTagName('title')[0]) === null || _window$document$getE === void 0 ? void 0 : _window$document$getE.innerText) || 'Hijrah';
+var appName = ((_window$document$getE = window.document.getElementsByTagName('title')[0]) === null || _window$document$getE === void 0 ? void 0 : _window$document$getE.innerText) || '';
 (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_2__.createInertiaApp)({
   title: function title(_title) {
     return "".concat(_title, " | ").concat(appName);
@@ -6479,12 +6508,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "addFontface": () => (/* binding */ addFontface),
 /* harmony export */   "getGlobalFont": () => (/* binding */ getGlobalFont)
 /* harmony export */ });
-/* provided dependency */ var process = __webpack_require__(/*! process/browser.js */ "./node_modules/process/browser.js");
 var fontfaceStyle = function fontfaceStyle(fontClassName, page) {
   return "@font-face {\n      font-family: '".concat(fontClassName, "';\n      src: url(\"/font/quran/woff2/p").concat(page, ".woff2\") format(\"woff2\");\n      font-display: block;\n     }\n  \n    .").concat(fontClassName, " {\n      font-family: ").concat(fontClassName, ";\n      direction: rtl;\n     }\n    ");
 };
 var getQuranFont = function getQuranFont(pageNumber) {
-  return "".concat(process.env.APP_URL, "/font/quran/woff2/p").concat(pageNumber, ".woff2");
+  return "".concat("http://localhost:8000", "/font/quran/woff2/p").concat(pageNumber, ".woff2");
 };
 var addFontface = function addFontface(_ref) {
   var fonts = _ref.fonts,
@@ -6985,8 +7013,6 @@ __webpack_require__.r(__webpack_exports__);
 var quranStore = {
   init: function init() {
     var _this = this;
-
-    console.log('store init');
 
     if (!document.quran) {
       document.quran = {};

@@ -1,6 +1,5 @@
 export const quranStore = {
     init(){
-        console.log('store init');
         if (!document.quran) {
             document.quran = {};
         } else{

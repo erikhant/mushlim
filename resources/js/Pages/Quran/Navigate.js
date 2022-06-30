@@ -23,10 +23,6 @@ function Jumper({ chapters }) {
     const [verse, setVerse] = useState(location.hash.substring(1) || quranStore.get('reqVerse') || 1); 
     const chapter = useRef(quran.chapter || 1);
 
-    const requestSelectedVerse = () => {
-        quranStore.set('reqVerse', verse);
-    }
-
     const chapterOptions = () => {
         return chapters.map(chapter => ({
             name: `${chapter.id} - ${chapter.name_simple}`, 
@@ -70,6 +66,25 @@ function Jumper({ chapters }) {
         }
         
         return route(nameRoute, {...options});
+    }
+
+    const onNavigateChanges = (state) => {
+        quranStore.set('reqVerse', verse);
+        
+        if (quran.mode === '0' && quran.chapter) {
+            const current = chapters.filter(chapt => {
+                if (state === 'prev') {
+                    return chapt.id === parseInt(quran.chapter) - 1
+                } 
+                else if (state === 'next') {
+                    return chapt.id === parseInt(quran.chapter) + 1
+                } 
+                else{
+                    return chapt.id == chapter.current
+                }
+            })[0];
+            quranStore.set('latest page', current.pages[0]);
+        }
     }
 
     const setEventOnSelectedVerse = () => {
@@ -119,7 +134,7 @@ function Jumper({ chapters }) {
                         variant="solid"
                         className="px-3 sm:px-5"
                         to={route('quran.chapter', { chapter: chapter.current, mode: quran.mode })}
-                        onClick={requestSelectedVerse}
+                        onClick={onNavigateChanges}
                         >Go
                     </Button>
                     :
@@ -155,6 +170,7 @@ function Jumper({ chapters }) {
                 <Button 
                     type="a"
                     variant="outline"
+                    onClick={() => onNavigateChanges('next')}
                     to={handlePageRoute('next')}
                     >
                     <span className="mr-1.5">
@@ -170,6 +186,7 @@ function Jumper({ chapters }) {
                 <Button 
                     type="a"
                     variant="outline"
+                    onClick={() => onNavigateChanges('prev')}
                     to={handlePageRoute('prev')}
                     >
                     { quran.chapter ? 'Prev surah' : 'Prev juz' } 

@@ -13,7 +13,7 @@ export const fontfaceStyle = (fontClassName, page) => (
 );
   
 export const getQuranFont = (pageNumber) => {
-  return `${process.env.APP_URL}/font/quran/woff2/p${pageNumber}.woff2`;
+  return `${process.env.MIX_APP_URL}/font/quran/woff2/p${pageNumber}.woff2`;
 }
 
 export const addFontface = ({fonts, family, pageNumber}) => {
