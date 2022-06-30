@@ -2957,7 +2957,7 @@ function Navbar() {
       setShowResponsiveMenu = _useState2[1];
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("nav", {
-    className: "fixed top-0 left-0 right-0 bg-ui w-full md:border-none md:static z-30 border-b-2 border-b-secondary-light",
+    className: "fixed top-0 left-0 right-0 bg-ui w-full md:border-none md:static z-50 border-b-2 border-b-secondary-light",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "max-w-6xl mx-auto px-4 sm:px-6 lg:px-8",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
@@ -5584,7 +5584,7 @@ function Navigate(_ref7) {
       return !prev;
     });
     var offsetHeight = self.current.offsetHeight;
-    var adjuster = screen.availWidth < 768 ? 0.7 : 0.6;
+    var adjuster = screen.availWidth < 768 ? 0.55 : 0.6;
 
     if (toggle) {
       self.current.classList.remove('top-0');
@@ -5649,7 +5649,7 @@ function Navigate(_ref7) {
   }, [chapterList, navigate]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
     ref: self,
-    className: "sticky top-0 left-0 right-0 h-auto z-30 mb-6 origin-top text-xs sm:text-sm md:text-base bg-ui border border-secondary-light rounded transition-all duration-200 ease-out",
+    className: "sticky top-10 md:top-0 left-0 right-0 h-auto z-30 mb-6 origin-top text-xs sm:text-sm md:text-base bg-ui border border-secondary-light rounded transition-all duration-200 ease-out",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
       ref: function ref() {
         return setScrollPaddingTop(self);

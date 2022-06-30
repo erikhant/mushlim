@@ -13,7 +13,7 @@ export default function Navbar() {
     const [showResponsiveMenu, setShowResponsiveMenu] = useState(false);
 
     return (
-        <nav className="fixed top-0 left-0 right-0 bg-ui w-full md:border-none md:static z-30 border-b-2 border-b-secondary-light">
+        <nav className="fixed top-0 left-0 right-0 bg-ui w-full md:border-none md:static z-50 border-b-2 border-b-secondary-light">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 {/* Large Screen */}
