@@ -17,7 +17,7 @@ import { pagePositionByVerse } from '@/helpers/quran/pages.helper';
 import { quranStore } from '@/store/quranStore';
 
 export default function ScrollMode({ bismillah, startPage, startVerse }){
-    const { quran } = usePage().props;
+    const { quran, baseURL } = usePage().props;
     const [ pageIndex, setPageIndex ] = useState(startPage);
     const { verses, pagination, error, loading } = useQuran({ chapter: quran.chapter, juz: quran.juz, page: pageIndex }); 
     const [ allVerses, setVerses ] = useState([]);
@@ -74,7 +74,10 @@ export default function ScrollMode({ bismillah, startPage, startVerse }){
         quran.fonts = addFontface({
             fonts: quran.fonts, 
             family: `quran-${page}`, 
-            pageNumber: page
+            page,
+            options: {
+                baseURL
+            }
         });
     });
 

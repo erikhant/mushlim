@@ -4987,7 +4987,9 @@ function MushafMode(_ref) {
   var chapterData = _ref.chapterData,
       startPage = _ref.startPage,
       startVerse = _ref.startVerse;
-  var quran = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_4__.usePage)().props.quran;
+  var _usePage$props = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_4__.usePage)().props,
+      quran = _usePage$props.quran,
+      baseURL = _usePage$props.baseURL;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(startPage),
       _useState2 = _slicedToArray(_useState, 2),
@@ -5026,7 +5028,10 @@ function MushafMode(_ref) {
     quran.fonts = (0,_helpers_quran_fontface_helper__WEBPACK_IMPORTED_MODULE_7__.addFontface)({
       fonts: quran.fonts,
       family: "quran-".concat(page),
-      pageNumber: page
+      page: page,
+      options: {
+        baseURL: baseURL
+      }
     });
   }, []); // useEffect(() => {
   //   handleFontface(startPage);
@@ -5924,7 +5929,9 @@ function ScrollMode(_ref) {
   var bismillah = _ref.bismillah,
       startPage = _ref.startPage,
       startVerse = _ref.startVerse;
-  var quran = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_9__.usePage)().props.quran;
+  var _usePage$props = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_9__.usePage)().props,
+      quran = _usePage$props.quran,
+      baseURL = _usePage$props.baseURL;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(startPage),
       _useState2 = _slicedToArray(_useState, 2),
@@ -6012,7 +6019,10 @@ function ScrollMode(_ref) {
     quran.fonts = (0,_helpers_quran_fontface_helper__WEBPACK_IMPORTED_MODULE_13__.addFontface)({
       fonts: quran.fonts,
       family: "quran-".concat(page),
-      pageNumber: page
+      page: page,
+      options: {
+        baseURL: baseURL
+      }
     });
   });
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -6511,18 +6521,19 @@ __webpack_require__.r(__webpack_exports__);
 var fontfaceStyle = function fontfaceStyle(fontClassName, page) {
   return "@font-face {\n      font-family: '".concat(fontClassName, "';\n      src: url(\"/font/quran/woff2/p").concat(page, ".woff2\") format(\"woff2\");\n      font-display: block;\n     }\n  \n    .").concat(fontClassName, " {\n      font-family: ").concat(fontClassName, ";\n      direction: rtl;\n     }\n    ");
 };
-var getQuranFont = function getQuranFont(pageNumber) {
-  return "".concat("http://localhost:8000", "/font/quran/woff2/p").concat(pageNumber, ".woff2");
+var getQuranFont = function getQuranFont(page, baseURL) {
+  return "".concat(baseURL, "/font/quran/woff2/p").concat(page, ".woff2");
 };
 var addFontface = function addFontface(_ref) {
   var fonts = _ref.fonts,
       family = _ref.family,
-      pageNumber = _ref.pageNumber;
+      page = _ref.page,
+      baseURL = _ref.options.baseURL;
 
   if (!fonts.some(function (font) {
     return font === family;
   })) {
-    var font = new FontFace(family, "url(".concat(getQuranFont(pageNumber), ")"), {
+    var font = new FontFace(family, "url(".concat(getQuranFont(page, baseURL), ")"), {
       display: 'block'
     });
     document.fonts.add(font);

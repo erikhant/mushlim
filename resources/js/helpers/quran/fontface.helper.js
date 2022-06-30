@@ -12,13 +12,13 @@ export const fontfaceStyle = (fontClassName, page) => (
     `
 );
   
-export const getQuranFont = (pageNumber) => {
-  return `${process.env.MIX_APP_URL}/font/quran/woff2/p${pageNumber}.woff2`;
+export const getQuranFont = (page, baseURL) => {
+  return `${baseURL}/font/quran/woff2/p${page}.woff2`;
 }
 
-export const addFontface = ({fonts, family, pageNumber}) => {
+export const addFontface = ({fonts, family, page, options:{ baseURL }}) => {
   if (!fonts.some(font => font === family)) {
-      const font = new FontFace(family, `url(${getQuranFont(pageNumber)})`, { display: 'block' });
+      const font = new FontFace(family, `url(${getQuranFont(page, baseURL)})`, { display: 'block' });
       document.fonts.add(font);
       fonts.push(font.family);
   }
